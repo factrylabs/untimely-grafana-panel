@@ -1,20 +1,20 @@
 {
   "type": "panel",
-  "name": "Simple Panel",
-  "id": "myorgid-simple-panel",
+  "name": "Untimely",
+  "id": "untimely-factryio",
 
   "info": {
-    "description": "Simple React Panel",
+    "description": "Untimely panel by Factry",
     "author": {
-      "name": "Your Name"
+      "name": "Factry"
     },
-    "keywords": ["Simple"],
+    "keywords": ["Untimely", "Panel", "Grafana", "Factry", "Graph"],
     "logos": {
-      "small": "img/logo.svg",
-      "large": "img/logo.svg"
+      "small": "img/logo.png",
+      "large": "img/logo.png"
     },
     "links": [
-      {"name": "Website", "url": "https://github.com/grafana/simple-react-panel"},
+      {"name": "Website", "url": "https://www.factry.io"},
       {"name": "License", "url": "https://github.com/grafana/simple-react-panel/blob/master/LICENSE"}
     ],
     "screenshots": [],

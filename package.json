@@ -1,18 +1,31 @@
 {
-  "name": "simple-react-panel",
+  "name": "@factry/untimely-panel",
   "version": "1.0.0",
-  "description": "Simple React Panel",
+  "description": "Untimely",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
     "test": "grafana-toolkit plugin:test",
     "dev": "grafana-toolkit plugin:dev",
     "watch": "grafana-toolkit plugin:dev --watch"
   },
-  "author": "Grafana Labs",
+  "author": "Factry",
   "license": "Apache-2.0",
   "devDependencies": {
     "@grafana/data": "next",
     "@grafana/toolkit": "next",
-    "@grafana/ui": "next"
+    "@grafana/ui": "next",
+    "@types/flot": "^0.0.31",
+    "@types/jquery": "^3.3.32",
+    "@types/react": "^16.9.19",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "@typescript-eslint/parser": "^2.19.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "jquery": "^3.4.1",
+    "react": "^16.12.0"
   }
 }
