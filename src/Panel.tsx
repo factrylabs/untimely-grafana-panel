@@ -38,25 +38,29 @@ export class Panel extends PureComponent<Props, State> {
       return ticks;
     }
 
-    // Find all the ticks that signal a reset
-    series.forEach((serie) => {
-      const resets = serie.data
-        .filter((d) => d[0].resets)
-        .map((d) => d[0].value);
-
-      resets.forEach((r) => {
-        if (!ticks.find((t) => t === r)) {
-          ticks.push(r);
-        }
-      });
-    });
-
     // A tick needs 65 px width
     const nbTicks = width / 65;
 
     const minValue = xSerie[0].value;
     const maxValue = xSerie[xSerie.length - 1].value;
     const tickDistance = (maxValue - minValue) / nbTicks;
+
+    // Find all the ticks that signal a reset
+    series.forEach((serie) => {
+      const resets = serie.data
+        .filter((d) => d[0].resets)
+        .map((d) => d[0].value);
+
+      for (let i = 0; i < resets.length; i += 1) {
+        const duplicateTick = ticks.find((t) => (
+          t === resets[i] || Math.abs(resets[i] - t) < tickDistance
+        ));
+        if (duplicateTick) {
+          continue;
+        }
+        ticks.push(resets[i]);
+      }
+    });
 
     // Add extra ticks if they are far enough from the reset ticks
     for (let i = 0; i < nbTicks; i += 1) {
@@ -226,9 +230,9 @@ export class Panel extends PureComponent<Props, State> {
               }
 
               if (!resets) {
-                return values[0].label;
+                return values[0].label.toFixed(2);
               }
-              return `${values[0].label}&nbsp;&darr;`;
+              return `${values[0].label.toFixed(2)}&nbsp;&darr;`;
             },
           },
           crosshair: {
