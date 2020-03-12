@@ -4,6 +4,7 @@ import { Popper } from 'react-popper';
 import { LegendItem, SeriesIcon } from '@grafana/ui';
 
 interface Props {
+  accuracy: number;
   series?: any[];
   items?: LegendItem[];
   hoveredValue?: any;
@@ -50,7 +51,9 @@ export class Tooltip extends PureComponent<Props, State> {
   }
 
   getTooltipValues(): any[] {
-    const { series, items, hoveredValue } = this.props;
+    const {
+      accuracy, series, items, hoveredValue,
+    } = this.props;
     if (!hoveredValue || !series?.length || !items?.length) {
       return [];
     }
@@ -60,7 +63,7 @@ export class Tooltip extends PureComponent<Props, State> {
       return {
         color: item.color,
         label: item.label,
-        value: value ? value[1].toFixed(2) : '-',
+        value: value ? value[1].toFixed(accuracy) : '-',
       };
     });
   }
@@ -79,6 +82,7 @@ export class Tooltip extends PureComponent<Props, State> {
   }
 
   render() {
+    const { accuracy } = this.props;
     const { x, y } = this.state;
     const xValue = this.getXValue();
     const values = this.getTooltipValues();
@@ -94,7 +98,7 @@ export class Tooltip extends PureComponent<Props, State> {
         }) => (
           <div ref={ref} style={style} className="grafana-tooltip graph-tooltip" data-placement={placement}>
             <div className="graph-tooltip-time">
-              {xValue}
+              {xValue.toFixed(accuracy)}
             </div>
             {values.map((value) => (
               <div className="graph-tooltip-list-item">

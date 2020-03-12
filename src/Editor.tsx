@@ -15,28 +15,28 @@ export class Editor extends PureComponent<PanelEditorProps<SimpleOptions>> {
   };
 
   render() {
-    const { data, options } = this.props;
+    const { data, options: { xseries, accuracy } } = this.props;
 
     const selectSeriesOptions = data.series.map((serie) => (
       { label: serie.name, value: serie.name }
     ));
 
-    const selectedXSeries = selectSeriesOptions.find((serie) => serie.value === options.xseries);
+    const selectedXSeries = selectSeriesOptions.find((serie) => serie.value === xseries);
 
     return (
       <>
-        <div className="section gf-form-group">
-          <h5 className="section-heading">Display</h5>
+        <div className="gf-form-group">
+          <h5 className="section-heading">Formatting options</h5>
           <FormField
-            label="Text"
-            labelWidth={5}
+            label="Decimals after comma"
+            labelWidth={20}
             inputWidth={20}
-            type="text"
-            onChange={({ target: { value } }) => this.onChange('title', value)}
-            value={options.title || ''}
+            type="number"
+            value={accuracy}
+            onChange={({ target: { value } }) => this.onChange('accuracy', value)}
           />
         </div>
-        <div className="section gf-form-group">
+        <div className="gf-form-group">
           <h5 className="section-heading">X-Axis series</h5>
           <Select
             placeholder="Choose..."

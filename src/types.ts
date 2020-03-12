@@ -1,13 +1,11 @@
 export interface SimpleOptions {
-  title: string;
   xseries: string;
-  offset: number;
+  accuracy: number;
 }
 
 export const defaults: SimpleOptions = {
-  title: 'Factry Grafana panel',
   xseries: '',
-  offset: 0,
+  accuracy: 2,
 };
 
 export interface XValue {
