@@ -49,3 +49,8 @@ To install the plugin:
 - Rename the `dist/` folder to a nicer name, identifying it in the plugin directory
 - Copy that directory to `/var/lib/grafana/plugins` in your Grafana installation
 - Restart the grafana server (`sudo systemctl restart grafana-server`)
+
+## Usage and tips
+- Use the decimal formatting to choose how many decimals should be in the ticks and on the tooltip
+- When you have resets, choose the 'max' selector for your x-axis series and the 'min' selector for the other series
+- A little downwards arrow next to a value denotes that there is a reset
