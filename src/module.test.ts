@@ -1,7 +1,7 @@
 import { ArrayVector, FieldType } from '@grafana/data';
 import convertToPoints from './convertToPoints';
 
-const getFrame = (values: number[], times: number[], name: string = '') => ({
+const getFrame = (values: number[], times: number[], name = '') => ({
   name,
   fields: [{
     name: '',
