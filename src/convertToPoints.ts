@@ -10,17 +10,21 @@ const getValue = (data: DataFrame, index: number): number => (
 );
 
 export default (
-  dataX: DataFrame | undefined, yData: DataFrame[] | undefined, offset: number,
+  xDataFrame: DataFrame | undefined,
+  yDataFrames: DataFrame[] | undefined,
+  offsets: { [key: string]: any},
 ): { series: Serie[], xSerie: XValue[] } => {
   const series: Serie[] = [];
   const xSerie: XValue[] = [];
 
-  if (!dataX || !yData || !dataX.length || !yData.length) {
+  if (!xDataFrame || !yDataFrames || !xDataFrame.length || !yDataFrames.length) {
     return { series, xSerie };
   }
 
-  for (let j = 0; j < yData.length; j += 1) {
-    const dataY = yData[j];
+  for (let j = 0; j < yDataFrames.length; j += 1) {
+    const dataY = yDataFrames[j];
+    const offset = dataY.name && offsets[dataY.name] ? parseFloat(offsets[dataY.name]) : 0;
+
     if (!dataY.length) {
       continue;
     }
@@ -28,41 +32,25 @@ export default (
     const points: Point[] = [];
     let yIndex = 0;
     let previousXValue = 0;
+    let offsetResetPoint = 0;
     let total = 0;
 
-    for (let i = 0; i < dataX.length; i += 1) {
-      // Get value
-      let xValue = getValue(dataX, i);
-
-      // Get time for this value
-      const xTime = getTime(dataX, i);
-
-      // Get value with offset
-      if (xValue - offset >= 0 || points.length < 1) {
-        xValue -= offset;
-      } else {
-        let previousValue = -Infinity;
-        for (let o = xSerie.length - 1; o >= 0; o -= 1) {
-          if (xSerie[o].resets) {
-            previousValue = xSerie[o].label;
-            break;
-          }
-        }
-        xValue = previousValue + xValue;
-      }
-
-      // If value is negative, skip the value
-      if (xValue < 0) {
+    for (let i = 0; i < xDataFrame.length; i += 1) {
+      // Get value and time for this value
+      let xValue = getValue(xDataFrame, i);
+      if (xValue === null || xValue === undefined) {
         continue;
       }
+      const xTime = getTime(xDataFrame, i);
 
+      // Look for a y value that matches the x value in time
       for (; yIndex < dataY.length; yIndex += 1) {
-        // Last item, don't compare anymore
+        // Last item, don't search any further
         if (yIndex === dataY.length - 1) {
           break;
         }
 
-        // Stop searching if next item is bigger
+        // Match the y value that does not have a bigger time
         const nextTime = getTime(dataY, yIndex + 1);
         if (nextTime > xTime) {
           break;
@@ -71,34 +59,40 @@ export default (
 
       const yValue = getValue(dataY, yIndex);
 
-      // If this point is exactly the same as the previous one, we should not add it
-      if (points.length > 0) {
-        const previousY = points[points.length - 1][1];
-        if (xValue === previousXValue && yValue === previousY) {
-          continue;
+      if (offset && offset > 0) {
+        // Offset the x value if needed
+        if (xValue >= offset || points.length === 0) {
+          xValue -= offset;
+          offsetResetPoint = xValue;
+        } else {
+          xValue += offsetResetPoint;
         }
       }
 
-      const resets = previousXValue > xValue;
-      if (resets) {
-        total += previousXValue - xValue;
+      // Skip the value if it's invalid
+      if (xValue < 0) {
+        continue;
       }
 
-      if (resets) {
-        points[points.length - 1][0].resets = true;
+      // If resets, add the reset point (peek) to the total
+      const isResetPoint = previousXValue > xValue;
+      if (isResetPoint) {
+        total += previousXValue;
+        points[points.length - 1][0].isResetPoint = true;
       }
 
-      const value = resets ? total : total + xValue;
+      // If the value resets, add it up to the previous value
+      const value = total + xValue;
 
       points.push([{
         label: xValue,
         time: getTime(dataY, yIndex),
         value,
-        resets,
+        isResetPoint: false,
       }, yValue]);
 
       xSerie.push({
-        label: xValue, value, resets, time: xTime,
+        label: xValue, value, isResetPoint, time: xTime,
       });
 
       previousXValue = xValue;
@@ -108,5 +102,6 @@ export default (
   }
 
   xSerie.sort((a, b) => a.value - b.value);
+  series.forEach((serie) => serie.data.sort((a, b) => a[0].value - b[0].value));
   return { series, xSerie };
 };

@@ -14,29 +14,38 @@ export class Editor extends PureComponent<PanelEditorProps<SimpleOptions>> {
     });
   };
 
+  onChangeOffset = (serie: string, value: any) => {
+    const { options, onOptionsChange } = this.props;
+
+    onOptionsChange({
+      ...options,
+      offsets: { ...options.offsets, [serie]: value },
+    });
+  }
+
   render() {
-    const { data, options } = this.props;
+    const { data, options: { xseries, accuracy, offsets } } = this.props;
 
     const selectSeriesOptions = data.series.map((serie) => (
       { label: serie.name, value: serie.name }
     ));
 
-    const selectedXSeries = selectSeriesOptions.find((serie) => serie.value === options.xseries);
+    const selectedXSeries = selectSeriesOptions.find((serie) => serie.value === xseries);
 
     return (
       <>
-        <div className="section gf-form-group">
-          <h5 className="section-heading">Display</h5>
+        <div className="gf-form-group">
+          <h5 className="section-heading">Formatting options</h5>
           <FormField
-            label="Text"
-            labelWidth={5}
+            label="Decimals after comma"
+            labelWidth={20}
             inputWidth={20}
-            type="text"
-            onChange={({ target: { value } }) => this.onChange('title', value)}
-            value={options.title || ''}
+            type="number"
+            value={accuracy}
+            onChange={({ target: { value } }) => this.onChange('accuracy', value)}
           />
         </div>
-        <div className="section gf-form-group">
+        <div className="gf-form-group">
           <h5 className="section-heading">X-Axis series</h5>
           <Select
             placeholder="Choose..."
@@ -45,17 +54,23 @@ export class Editor extends PureComponent<PanelEditorProps<SimpleOptions>> {
             onChange={({ value }) => this.onChange('xseries', value)}
           />
         </div>
-        <div className="section gf-form-group">
-          <h5 className="section-heading">X-Axis offset</h5>
-          <FormField
-            label="Number"
-            labelWidth={5}
-            inputWidth={20}
-            type="number"
-            onChange={({ target: { value } }) => this.onChange('offset', value)}
-            value={options.offset || ''}
-          />
-        </div>
+        {!!xseries && (
+          <div className="gf-form-group">
+            <h1 className="section-heading">Y-series offsets</h1>
+            {data.series.filter((serie) => serie.name !== xseries).map((serie) => (
+              <FormField
+                label={serie.name || ''}
+                labelWidth={20}
+                inputWidth={20}
+                type="number"
+                value={offsets[serie.name as string]}
+                onChange={({ target: { value } }) => (
+                  this.onChangeOffset(serie.name as string, value)
+                )}
+              />
+            ))}
+          </div>
+        )}
       </>
     );
   }

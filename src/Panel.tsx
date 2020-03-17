@@ -48,7 +48,7 @@ export class Panel extends PureComponent<Props, State> {
     // Find all the ticks that signal a reset
     series.forEach((serie) => {
       const resets = serie.data
-        .filter((d) => d[0].resets)
+        .filter((d) => d[0].isResetPoint)
         .map((d) => d[0].value);
 
       for (let i = 0; i < resets.length; i += 1) {
@@ -105,15 +105,15 @@ export class Panel extends PureComponent<Props, State> {
   }
 
   getSeries() {
-    const { data: { series }, options } = this.props;
+    const { data: { series }, options: { offsets, xseries } } = this.props;
 
     const xDataFrame = this.getXSerie();
 
     const yDataFrames = series.filter((serie) => (
-      serie.name !== options.xseries
+      serie.name !== xseries
     ));
 
-    return convertToPoints(xDataFrame, yDataFrames, parseInt(options.offset as any, 10) || 0);
+    return convertToPoints(xDataFrame, yDataFrames, offsets);
   }
 
   getXSerie() {
@@ -188,9 +188,9 @@ export class Panel extends PureComponent<Props, State> {
       return;
     }
 
-    series.forEach((serie: any, index: any) => {
-      const match = serie.data.findIndex((s: any) => s[0].value >= point);
-      plot.highlight(index, match);
+    series.forEach((serie, index: any) => {
+      const match = serie.data.findIndex((s) => s[0].value >= point);
+      plot.highlight(index, match as any);
     });
   }
 
@@ -199,7 +199,7 @@ export class Panel extends PureComponent<Props, State> {
       return;
     }
     const { series, xSerie } = this.getSeries();
-    const { width } = this.props;
+    const { width, options: { accuracy } } = this.props;
 
     this.setState({ noData: series.length < 1 });
 
@@ -219,20 +219,20 @@ export class Panel extends PureComponent<Props, State> {
             lines: { show: true },
           },
           xaxis: {
-            tickDecimals: 2,
+            tickDecimals: accuracy,
             ticks: Panel.generateTicks(series, xSerie, width),
             tickFormatter: (val) => {
-              const values = xSerie.filter((s: any) => s.value === val);
-              const resets = values.find((s: any) => s.resets);
+              const values = xSerie.filter((s) => s.value === val);
+              const resets = values.find((s) => s.isResetPoint);
 
               if (!values.length) {
                 return '?';
               }
 
               if (!resets) {
-                return values[0].label.toFixed(2);
+                return values[0].label.toFixed(accuracy);
               }
-              return `${values[0].label.toFixed(2)}&nbsp;&darr;`;
+              return `${values[0].label.toFixed(accuracy)}&nbsp;&darr;`;
             },
           },
           crosshair: {
@@ -252,7 +252,7 @@ export class Panel extends PureComponent<Props, State> {
   }
 
   render() {
-    const { height, width } = this.props;
+    const { height, width, options: { accuracy } } = this.props;
     const {
       hoverItem, noData, xSerie, series,
     } = this.state;
@@ -270,6 +270,7 @@ export class Panel extends PureComponent<Props, State> {
         />
         {noData && <div className="datapoints-warning">No data</div>}
         <Tooltip
+          accuracy={accuracy}
           items={this.getLegendItems()}
           series={series}
           xSerie={xSerie}

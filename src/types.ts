@@ -1,20 +1,20 @@
 export interface SimpleOptions {
-  title: string;
   xseries: string;
-  offset: number;
+  accuracy: number;
+  offsets: { [key: string]: any };
 }
 
 export const defaults: SimpleOptions = {
-  title: 'Factry Grafana panel',
   xseries: '',
-  offset: 0,
+  accuracy: 2,
+  offsets: {},
 };
 
 export interface XValue {
   value: number;
   label: number;
   time: number;
-  resets: boolean;
+  isResetPoint: boolean;
 }
 
 export type Point = [XValue, number];
