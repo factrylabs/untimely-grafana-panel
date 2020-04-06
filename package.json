@@ -1,14 +1,14 @@
 {
   "name": "@factry/untimely-panel",
-  "version": "1.0.0",
-  "description": "Untimely",
+  "version": "0.1.0",
+  "description": "Untimely Grafana panel",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
     "test": "grafana-toolkit plugin:test --coverage",
     "dev": "grafana-toolkit plugin:dev",
     "watch": "grafana-toolkit plugin:dev --watch"
   },
-  "author": "Factry",
+  "author": "Factry BV",
   "license": "Apache-2.0",
   "devDependencies": {
     "@grafana/data": "next",
