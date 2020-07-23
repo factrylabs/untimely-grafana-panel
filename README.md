@@ -29,6 +29,7 @@ To install the plugin:
 - Use the decimal formatting to choose how many decimals should be in the ticks and on the tooltip
 - When you have resets, choose the 'max' selector for your x-axis series and the 'min' selector for the other series
 - A little downwards arrow next to a value denotes that there is a reset
+- Use fill (none) to fill up missing values for the group by
 
 ## Development
 Make **sure** you are running Node 12
