@@ -11,9 +11,9 @@
   "author": "Factry BV",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@grafana/data": "next",
-    "@grafana/toolkit": "next",
-    "@grafana/ui": "next",
+    "@grafana/data": "^7.1.0",
+    "@grafana/toolkit": "^7.1.0",
+    "@grafana/ui": "^7.1.0",
     "@types/flot": "^0.0.31",
     "@types/jquery": "^3.3.32",
     "@types/react": "^16.9.19",
