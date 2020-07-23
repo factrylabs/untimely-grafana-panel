@@ -246,7 +246,6 @@ export class Panel extends PureComponent<Props, State> {
 
       this.setState({ plot, series, xSerie });
     } catch (err) {
-      console.error(err);
       throw new Error('Error rendering panel');
     }
   }
