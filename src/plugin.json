@@ -1,7 +1,7 @@
 {
   "type": "panel",
   "name": "Untimely",
-  "id": "factrylabs-untimely-panel",
+  "id": "factry-untimely-panel",
 
   "info": {
     "description": "Grafana panel for displaying time series data as function of distance",
@@ -24,7 +24,7 @@
   },
 
   "dependencies": {
-    "grafanaVersion": "7.1.x",
+    "grafanaDependency": ">=7.1.0",
     "plugins": []
   }
 }
