@@ -1,6 +1,6 @@
 # Untimely
 
-![Untimely Grafana Panel Screenshot](https://www.factry.io/blog/introducing-untimely-grafana-panel/panel.png "Untimely Grafana Panel Screenshot")
+![Untimely Grafana Panel Screenshot](https://www.factry.io/blog/introducing-the-untimely-grafana-panel/panel.png "Untimely Grafana Panel Screenshot")
 
 ## Introduction
 The Untimely Grafana plugin is a panel that facilitates working with distances on the x-axis (or anything else that isn't time).
