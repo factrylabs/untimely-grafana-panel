@@ -23,7 +23,7 @@ export default (
 
   for (let j = 0; j < yDataFrames.length; j += 1) {
     const dataY = yDataFrames[j];
-    const offset = dataY.name && offsets[dataY.name] ? parseFloat(offsets[dataY.name]) : 0;
+    const offset = dataY.refId && offsets[dataY.refId] ? parseFloat(offsets[dataY.refId]) : 0;
 
     if (!dataY.length) {
       continue;

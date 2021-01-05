@@ -67,7 +67,7 @@ export class Panel extends PureComponent<Props, State> {
     const xDataFrame = this.getXSerie();
 
     const yDataFrames = series.filter((serie) => (
-      serie.name !== xseries
+      serie.refId !== xseries
     ));
 
     return convertToPoints(xDataFrame, yDataFrames, offsets);
@@ -76,7 +76,7 @@ export class Panel extends PureComponent<Props, State> {
   getXSerie() {
     const { data: { series }, options } = this.props;
     return series.find((serie) => (
-      serie.name === options.xseries
+      serie.refId === options.xseries
     ));
   }
 
@@ -130,7 +130,7 @@ export class Panel extends PureComponent<Props, State> {
     }
 
     return series.filter((serie) => (
-      serie.name !== options.xseries
+      serie.refId !== options.xseries
     )).map((serie, idx) => ({
       label: serie.name || '',
       isVisible: true,
