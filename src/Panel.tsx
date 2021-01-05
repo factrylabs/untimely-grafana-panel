@@ -6,10 +6,10 @@ import {
   CustomScrollbar, GraphLegend, LegendDisplayMode, LegendItem,
 } from '@grafana/ui';
 import { Tooltip } from './Tooltip';
-import { Serie, SimpleOptions, XValue } from './types';
+import { Serie, Options, XValue } from './types';
 import convertToPoints from './convertToPoints';
 
-interface Props extends PanelProps<SimpleOptions> {
+interface Props extends PanelProps<Options> {
   height: number;
   width: number;
 }
@@ -97,7 +97,7 @@ export class Panel extends PureComponent<Props, State> {
     this.drawGraph();
   }
 
-  componentDidUpdate(prevProps: PanelProps<SimpleOptions>, prevState: State) {
+  componentDidUpdate(prevProps: PanelProps<Options>, prevState: State) {
     const { series } = this.state;
     if (prevProps !== this.props || ((series || []).length !== (prevState.series || []).length)) {
       this.drawGraph();
