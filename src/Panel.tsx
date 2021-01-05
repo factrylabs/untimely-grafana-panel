@@ -47,8 +47,8 @@ export class Panel extends PureComponent<Props, State> {
   componentDidMount() {
     if (this.element) {
       this.$element = $(this.element);
-      this.$element.bind('plothover', this.onPlotHover);
-      this.$element.bind('plotselected', this.onPlotSelected);
+      this.$element.on('plothover', this.onPlotHover);
+      this.$element.on('plotselected', this.onPlotSelected);
     }
 
     this.drawGraph();
