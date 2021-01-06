@@ -1,6 +1,6 @@
 {
   "name": "@factry/untimely-panel",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Untimely Grafana panel",
   "scripts": {
     "build": "grafana-toolkit plugin:build && grafana-toolkit plugin:sign",
