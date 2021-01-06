@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "Untimely Grafana panel",
   "scripts": {
-    "build": "grafana-toolkit plugin:build",
+    "build": "grafana-toolkit plugin:build && grafana-toolkit plugin:sign",
     "test": "grafana-toolkit plugin:test --coverage",
     "dev": "grafana-toolkit plugin:dev",
     "watch": "grafana-toolkit plugin:dev --watch"
