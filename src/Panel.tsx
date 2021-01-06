@@ -6,10 +6,11 @@ import {
   CustomScrollbar, GraphLegend, LegendDisplayMode, LegendItem,
 } from '@grafana/ui';
 import { Tooltip } from './Tooltip';
-import { Serie, SimpleOptions, XValue } from './types';
+import { Serie, Options, XValue } from './types';
 import convertToPoints from './convertToPoints';
+import { generateTicks } from './ticks';
 
-interface Props extends PanelProps<SimpleOptions> {
+interface Props extends PanelProps<Options> {
   height: number;
   width: number;
 }
@@ -32,50 +33,6 @@ interface PlotOptions extends jquery.flot.plotOptions {
 }
 
 export class Panel extends PureComponent<Props, State> {
-  static generateTicks(series: Serie[], xSerie: XValue[], width: number): number[] {
-    const ticks: number[] = [];
-    if (!series.length || !xSerie.length) {
-      return ticks;
-    }
-
-    // A tick needs 65 px width
-    const nbTicks = width / 65;
-
-    const minValue = xSerie[0].value;
-    const maxValue = xSerie[xSerie.length - 1].value;
-    const tickDistance = (maxValue - minValue) / nbTicks;
-
-    // Find all the ticks that signal a reset
-    series.forEach((serie) => {
-      const resets = serie.data
-        .filter((d) => d[0].isResetPoint)
-        .map((d) => d[0].value);
-
-      for (let i = 0; i < resets.length; i += 1) {
-        const duplicateTick = ticks.find((t) => (
-          t === resets[i] || Math.abs(resets[i] - t) < tickDistance
-        ));
-        if (duplicateTick) {
-          continue;
-        }
-        ticks.push(resets[i]);
-      }
-    });
-
-    // Add extra ticks if they are far enough from the reset ticks
-    for (let i = 0; i < nbTicks; i += 1) {
-      const searchValue = minValue + tickDistance * i;
-      if (!ticks.find((t) => Math.abs(t - searchValue) < 0.85 * tickDistance)) {
-        const tickValue = xSerie.find((s) => s.value >= searchValue);
-        if (tickValue) {
-          ticks.push(tickValue.value);
-        }
-      }
-    }
-
-    return ticks.sort((a, b) => a - b);
-  }
-
   element: HTMLElement | null = null;
 
   $element: JQuery<HTMLElement> | null = null;
@@ -90,14 +47,14 @@ export class Panel extends PureComponent<Props, State> {
   componentDidMount() {
     if (this.element) {
       this.$element = $(this.element);
-      this.$element.bind('plothover', this.onPlotHover);
-      this.$element.bind('plotselected', this.onPlotSelected);
+      this.$element.on('plothover', this.onPlotHover);
+      this.$element.on('plotselected', this.onPlotSelected);
     }
 
     this.drawGraph();
   }
 
-  componentDidUpdate(prevProps: PanelProps<SimpleOptions>, prevState: State) {
+  componentDidUpdate(prevProps: PanelProps<Options>, prevState: State) {
     const { series } = this.state;
     if (prevProps !== this.props || ((series || []).length !== (prevState.series || []).length)) {
       this.drawGraph();
@@ -110,7 +67,7 @@ export class Panel extends PureComponent<Props, State> {
     const xDataFrame = this.getXSerie();
 
     const yDataFrames = series.filter((serie) => (
-      serie.name !== xseries
+      serie.refId !== xseries
     ));
 
     return convertToPoints(xDataFrame, yDataFrames, offsets);
@@ -119,7 +76,7 @@ export class Panel extends PureComponent<Props, State> {
   getXSerie() {
     const { data: { series }, options } = this.props;
     return series.find((serie) => (
-      serie.name === options.xseries
+      serie.refId === options.xseries
     ));
   }
 
@@ -173,7 +130,7 @@ export class Panel extends PureComponent<Props, State> {
     }
 
     return series.filter((serie) => (
-      serie.name !== options.xseries
+      serie.refId !== options.xseries
     )).map((serie, idx) => ({
       label: serie.name || '',
       isVisible: true,
@@ -220,7 +177,7 @@ export class Panel extends PureComponent<Props, State> {
           },
           xaxis: {
             tickDecimals: accuracy,
-            ticks: Panel.generateTicks(series, xSerie, width),
+            ticks: generateTicks(series, xSerie, width),
             tickFormatter: (val) => {
               const values = xSerie.filter((s) => s.value === val);
               const resets = values.find((s) => s.isResetPoint);

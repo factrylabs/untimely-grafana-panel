@@ -1,10 +1,10 @@
-export interface SimpleOptions {
+export interface Options {
   xseries: string;
   accuracy: number;
   offsets: { [key: string]: any };
 }
 
-export const defaults: SimpleOptions = {
+export const defaults: Options = {
   xseries: '',
   accuracy: 2,
   offsets: {},
