@@ -15,7 +15,7 @@ export const plugin = new PanelPlugin<Options>(Panel).setPanelOptions((builder) 
     .addCustomEditor({
       id: 'xseries',
       path: 'xseries',
-      name: 'References series',
+      name: 'Reference series',
       description: 'X-axis series',
       editor: SeriesEditor,
     })
