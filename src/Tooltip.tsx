@@ -92,7 +92,11 @@ export class Tooltip extends PureComponent<Props, State> {
     }
 
     return ReactDOM.createPortal(
-      <Popper placement="right-start" referenceElement={virtualElement} modifiers={{ offset: { offset: '25,25' } }}>
+      <Popper
+        placement="right-start"
+        referenceElement={virtualElement}
+        modifiers={[{ name: 'offset', options: { offset: [25, 25] } }]}
+      >
         {({
           ref, style, placement, arrowProps,
         }) => (
