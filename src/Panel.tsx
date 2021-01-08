@@ -23,19 +23,19 @@ interface State {
   xSerie?: XValue[];
 }
 
-interface Plot extends jquery.flot.plot {
+interface Plot extends jquery.flot.plot { // eslint-disable-line
   clearSelection(): void;
   findNearbyItem(x: number, y: number, radius: number): any;
 }
 
-interface PlotOptions extends jquery.flot.plotOptions {
+interface PlotOptions extends jquery.flot.plotOptions { // eslint-disable-line
   selection: object;
 }
 
 export class Panel extends PureComponent<Props, State> {
   element: HTMLElement | null = null;
 
-  $element: JQuery<HTMLElement> | null = null;
+  $element: JQuery<HTMLElement> | null = null; // eslint-disable-line
 
   constructor(props: Props) {
     super(props);
