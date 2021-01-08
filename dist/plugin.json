@@ -1,0 +1,30 @@
+{
+  "type": "panel",
+  "name": "Untimely",
+  "id": "factry-untimely-panel",
+
+  "info": {
+    "description": "Grafana panel for displaying time series data as function of distance",
+    "author": {
+      "name": "Factry",
+      "url": "https://www.factry.io"
+    },
+    "keywords": ["untimely", "panel", "distance", "length", "industry"],
+    "logos": {
+      "small": "img/logo.png",
+      "large": "img/logo.png"
+    },
+    "links": [
+      {"name": "Website", "url": "https://www.factry.io"},
+      {"name": "License", "url": "https://github.com/factrylabs/untimely-grafana-panel/blob/master/LICENSE"}
+    ],
+    "screenshots": [],
+    "version": "0.2.0",
+    "updated": "2021-01-08"
+  },
+
+  "dependencies": {
+    "grafanaDependency": ">=7.1.0",
+    "plugins": []
+  }
+}

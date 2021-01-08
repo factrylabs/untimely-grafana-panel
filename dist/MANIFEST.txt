@@ -1,0 +1,34 @@
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+{
+  "manifestVersion": "2.0.0",
+  "signatureType": "community",
+  "signedByOrg": "factry",
+  "signedByOrgName": "factry",
+  "plugin": "factry-untimely-panel",
+  "version": "0.2.0",
+  "time": 1610097707158,
+  "keyId": "7e4d0c6a708866e7",
+  "files": {
+    "plugin.json": "3a77d4e0f7442d69d7b0f0098c3c001918db88c4141d77959d884a3fed850fca",
+    "README.md": "627c0549419ec78e425d424df597e071a3ec6f9386c1f7f9ce02f0c9374ff23f",
+    "module.js.map": "1a385857a670b8f1cd71ea67bd9f3d2511538284973c0d749541c25d558b0ec4",
+    "img/logo.png": "49caf5acf2a86b8e7c2bd9fd1a344801a9d76c26752216faba27419825f79e0d",
+    "module.js": "58f2f86e3ed0ac28fc1767a9cfb078ef83dd478a8b78bb06d2d0a4d409dca03d",
+    "CHANGELOG.md": "ae69a504b1436e91233cac416ad8a3c87ec73452f122840afb7fa6ce37a0454d",
+    "LICENSE": "78fc4cbb3aa3cc3af15a509e1a924bcfe58dd0d82a5ee59230d2adc7819454b2",
+    "module.js.LICENSE.txt": "fdbc28c10f3d21976b4bc16464ad7c630538c0c3101347b5fd44af9066f7022b"
+  }
+}
+-----BEGIN PGP SIGNATURE-----
+Version: OpenPGP.js v4.10.1
+Comment: https://openpgpjs.org
+
+wqAEARMKAAYFAl/4JCsACgkQfk0ManCIZuc13AIGNdPfT9wlCHsnrSmcjzTP
+mGCtecTucF/AHYW+0iHBp2yaEXZzX3bHJMcP7ljGddk92bpebezMpoNoU8vr
+GfLh4P8CB2A1jYOTLlK/VOL0k4GJZP7/aFCy0uBJb4zzHzut22+Gim1jXJAH
+c8k4yjZW5wR96UT65vDuu3eYgNpYe3QtIC0L
+=wcn7
+-----END PGP SIGNATURE-----
