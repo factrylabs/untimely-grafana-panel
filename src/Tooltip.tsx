@@ -1,12 +1,12 @@
 import ReactDOM from 'react-dom';
 import React, { PureComponent } from 'react';
 import { Popper } from 'react-popper';
-import { LegendItem, SeriesIcon } from '@grafana/ui';
+import { VizLegendItem, SeriesIcon } from '@grafana/ui';
 
 interface Props {
   accuracy: number;
   series?: any[];
-  items?: LegendItem[];
+  items?: VizLegendItem[];
   hoveredValue?: any;
   xSerie?: any[];
 }
@@ -86,7 +86,7 @@ export class Tooltip extends PureComponent<Props, State> {
     const { x, y } = this.state;
     const xValue = this.getXValue();
     const values = this.getTooltipValues();
-    const virtualElement = Tooltip.virtualElement(x, y);
+    const virtualElement = Tooltip.virtualElement(x, y) as HTMLElement;
     if (!xValue) {
       return null;
     }

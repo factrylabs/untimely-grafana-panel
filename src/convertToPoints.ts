@@ -2,11 +2,11 @@ import { DataFrame } from '@grafana/data';
 import { Point, Serie, XValue } from './types';
 
 const getTime = (data: DataFrame, index: number): number => (
-  data.fields[1].values.get(index)
+  data.fields[0].values.get(index)
 );
 
 const getValue = (data: DataFrame, index: number): number => (
-  data.fields[0].values.get(index)
+  data.fields[1].values.get(index)
 );
 
 export default (

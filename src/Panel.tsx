@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { PanelProps } from '@grafana/data';
 import { FlotPosition } from '@grafana/ui/components/Graph/types.d';
 import {
-  CustomScrollbar, GraphLegend, LegendDisplayMode, LegendItem,
+  CustomScrollbar, VizLegend, LegendDisplayMode, VizLegendItem,
 } from '@grafana/ui';
 import { Tooltip } from './Tooltip';
 import { Serie, Options, XValue } from './types';
@@ -117,7 +117,7 @@ export class Panel extends PureComponent<Props, State> {
     }
   }
 
-  getLegendItems(): LegendItem[] {
+  getLegendItems(): VizLegendItem[] {
     const { plot } = this.state;
     const { data: { series }, options } = this.props;
 
@@ -129,10 +129,14 @@ export class Panel extends PureComponent<Props, State> {
       return [];
     }
 
+    if (!series.some((serie) => serie.refId === options.xseries)) {
+      return [];
+    }
+
     return series.filter((serie) => (
       serie.refId !== options.xseries
     )).map((serie, idx) => ({
-      label: serie.name || '',
+      label: serie.name || serie.refId || '',
       isVisible: true,
       color: plotData[idx].color,
       yAxis: 1,
@@ -152,11 +156,12 @@ export class Panel extends PureComponent<Props, State> {
   }
 
   drawGraph() {
+    const { series, xSerie } = this.getSeries();
+    const { width, options: { accuracy } } = this.props;
+
     if (this.$element === null) {
       return;
     }
-    const { series, xSerie } = this.getSeries();
-    const { width, options: { accuracy } } = this.props;
 
     this.setState({ noData: series.length < 1 });
 
@@ -224,7 +229,6 @@ export class Panel extends PureComponent<Props, State> {
             this.setState({ hoverItem: undefined });
           }}
         />
-        {noData && <div className="datapoints-warning">No data</div>}
         <Tooltip
           accuracy={accuracy}
           items={this.getLegendItems()}
@@ -234,9 +238,16 @@ export class Panel extends PureComponent<Props, State> {
         />
         <div style={{ maxHeight: '35%', padding: '10px 0' }}>
           <CustomScrollbar hideHorizontalTrack>
-            <GraphLegend items={this.getLegendItems()} placement="under" displayMode={LegendDisplayMode.List} />
+            <VizLegend
+              items={this.getLegendItems()}
+              displayMode={LegendDisplayMode.List}
+              placement="bottom"
+            />
           </CustomScrollbar>
         </div>
+        {noData && (
+          <div className="datapoints-warning">No data</div>
+        )}
       </div>
     );
   }

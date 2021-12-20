@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { InfoBox, Select } from '@grafana/ui';
+import { Alert, Select } from '@grafana/ui';
 import { StandardEditorProps } from '@grafana/data';
 
 export class SeriesEditor extends PureComponent<StandardEditorProps> {
@@ -9,7 +9,7 @@ export class SeriesEditor extends PureComponent<StandardEditorProps> {
     const series = data || [];
 
     const selectSeriesOptions = series.map((serie) => (
-      { label: `${serie.refId} - ${serie.name}`, value: serie.refId }
+      { label: `${serie.name || serie.refId}`, value: serie.refId }
     ));
 
     const selectedXSeries = selectSeriesOptions.find((serie) => serie.value === xseries);
@@ -17,9 +17,9 @@ export class SeriesEditor extends PureComponent<StandardEditorProps> {
     return (
       <>
         {!series.length && (
-          <InfoBox>
-            Make sure that all queries have data
-          </InfoBox>
+          <Alert title="Queries should have data" severity="info">
+            Make sure that all queries return data, otherwise an error might occur
+          </Alert>
         )}
         <Select
           options={selectSeriesOptions}

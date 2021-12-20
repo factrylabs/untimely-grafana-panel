@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Field, Input, InfoBox } from '@grafana/ui';
+import { Alert, Field, Input } from '@grafana/ui';
 import { StandardEditorProps } from '@grafana/data';
 
 export class OffsetsEditor extends PureComponent<StandardEditorProps> {
@@ -19,18 +19,17 @@ export class OffsetsEditor extends PureComponent<StandardEditorProps> {
     return (
       <>
         {!ySeries.length && (
-          <InfoBox>
+          <Alert title="Add more than one series" severity="warning">
             Please add more than one series to get started.
             <br />
             All series that are not the reference series will be used as Y-series.
-          </InfoBox>
+          </Alert>
         )}
         {ySeries.map((serie) => (
           <Field
-            label={`Offset for ${serie.refId} - ${serie.name || '-'}`}
+            label={`Offset for ${serie.name || serie.refId || '-'}`}
           >
             <Input
-              css=""
               type="number"
               onChange={({ currentTarget: { value } }) => (
                 this.onChangeOffset(serie.refId as string, value)
