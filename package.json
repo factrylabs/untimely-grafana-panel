@@ -1,34 +1,40 @@
 {
   "name": "@factry/untimely-panel",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Untimely Grafana panel",
   "scripts": {
-    "build": "grafana-toolkit plugin:build && grafana-toolkit plugin:sign",
-    "test": "grafana-toolkit plugin:test --coverage",
+    "build": "grafana-toolkit plugin:build",
+    "test": "grafana-toolkit plugin:test",
     "dev": "grafana-toolkit plugin:dev",
-    "watch": "grafana-toolkit plugin:dev --watch"
+    "watch": "grafana-toolkit plugin:dev --watch",
+    "sign": "grafana-toolkit plugin:sign",
+    "start": "yarn watch"
   },
   "author": "Factry BV",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@grafana/data": "^7.3.6",
-    "@grafana/toolkit": "^7.3.6",
-    "@grafana/ui": "^7.3.6",
-    "@popperjs/core": "^2.6.0",
-    "@types/flot": "^0.0.31",
-    "@types/jquery": "^3.3.32",
-    "@types/react": "^17.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.12.0",
-    "@typescript-eslint/parser": "^4.12.0",
-    "eslint": "^7.17.0",
+    "@grafana/data": "^8.3.2",
+    "@grafana/toolkit": "^8.3.2",
+    "@grafana/ui": "^8.3.2",
+    "@popperjs/core": "^2.11.0",
+    "@types/flot": "^0.0.32",
+    "@types/jquery": "^3.5.10",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.11",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.22.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "jquery": "^3.4.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-popper": "^2.2.4"
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "jquery": "^3.6.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-popper": "^2.2.5"
+  },
+  "engines": {
+    "node": ">=14"
   }
 }
