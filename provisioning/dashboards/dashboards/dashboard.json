@@ -1,0 +1,78 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "accuracy": 2,
+        "offsets": {
+          "A": "50"
+        },
+        "xseries": "B"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "testdata",
+            "uid": "P53465F745837BCFD"
+          },
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "testdata",
+            "uid": "P53465F745837BCFD"
+          },
+          "hide": false,
+          "refId": "B"
+        }
+      ],
+      "title": "Untimely Panel Plugin",
+      "type": "factry-untimely-panel"
+    }
+  ],
+  "schemaVersion": 33,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Untimely Plugin",
+  "version": 0,
+  "weekStart": ""
+}

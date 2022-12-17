@@ -1,0 +1,16 @@
+version: '3.0'
+
+services:
+  grafana:
+    container_name: 'untimely-grafana-panel'
+    build:
+      context: .
+      args:
+        grafana_version: ${GRAFANA_VERSION:-8.3.2}
+    environment:
+      - GF_INSTALL_PLUGINS=marcusolsson-static-datasource
+    ports:
+      - 3000:3000/tcp
+    volumes:
+      - ./dist:/var/lib/grafana/plugins/untimely-grafana-panel,
+      - ./provisioning:/etc/grafana/provisioning
