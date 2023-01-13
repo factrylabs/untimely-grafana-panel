@@ -1,6 +1,6 @@
 {
   "name": "@factry/untimely-panel",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Untimely Grafana panel",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
@@ -13,10 +13,7 @@
   "author": "Factry BV",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@grafana/data": "^8.3.2",
-    "@grafana/toolkit": "^8.3.2",
-    "@grafana/ui": "^8.3.2",
-    "@popperjs/core": "^2.11.0",
+    "@grafana/toolkit": "^8.3.4",
     "@types/flot": "^0.0.32",
     "@types/jquery": "^3.5.10",
     "@types/react": "^17.0.3",
@@ -27,8 +24,15 @@
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "webpack-livereload-plugin": "^3.0.2"
+  },
+  "dependencies": {
+    "@grafana/data": "^8.3.2",
+    "@grafana/ui": "^8.3.2",
+    "@popperjs/core": "^2.11.0",
     "jquery": "^3.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
