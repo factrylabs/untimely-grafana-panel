@@ -117,9 +117,17 @@ export class Tooltip extends PureComponent<Props, State> {
             <div ref={arrowProps.ref} style={arrowProps.style} />
           </div>
         )}
-      </Popper>, this.element,
+      </Popper>,
+      this.element,
     );
   }
 }
+
+Tooltip.defaultProps = {
+  series: undefined,
+  items: undefined,
+  hoveredValue: undefined,
+  xSerie: undefined,
+} as Partial<Props>;
 
 export default Tooltip;
